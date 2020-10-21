@@ -27,7 +27,7 @@ export const ShopifyProductsList: FC<IShopifyProductsListProps> = ({ setProduct,
 
   const [filter, setFilter] = useState<string>();
 
-  const { loading, data, error } = useQuery<IQueryRoot>(
+  const { loading, data } = useQuery<IQueryRoot>(
     `{
   products(first: 250) {
     edges {
@@ -60,7 +60,7 @@ export const ShopifyProductsList: FC<IShopifyProductsListProps> = ({ setProduct,
 }`
   );
 
-  useEffect(() => updateSize(), [loading]);
+  useEffect(() => updateSize(), [loading, updateSize]);
 
   return (
     <div>

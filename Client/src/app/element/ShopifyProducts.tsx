@@ -182,7 +182,7 @@ export const ShopifyProducts: FC = () => {
                         <img
                           className={styles.image}
                           src={product.images.edges[0].node.originalSrc}
-                          title={product.title}
+                          alt={product.title}
                           onLoad={() => setUpdateSize(!updateSize)}
                         />
                       </div>
