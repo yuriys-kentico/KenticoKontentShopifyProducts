@@ -2,6 +2,8 @@
 
 Sample custom element that uses the [Shopify Storefront API](https://shopify.dev/docs/storefront-api) to list Shopify products in a Shopify store.
 
+![KontentShopifyProducts](https://user-images.githubusercontent.com/34716163/96767488-9a5baf00-13aa-11eb-8f72-51b75a65feda.gif)
+
 ## Prerequisites
 
 1. Register a private app within Shopify. You can follow the instructions in the [Kentico Kontent documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/shopify-e-commerce#a-step-1-register-a-private-app-within-shopify).
