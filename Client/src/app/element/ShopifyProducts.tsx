@@ -138,14 +138,26 @@ export const ShopifyProducts: FC = () => {
               </div>
               <div className={styles.row}>
                 <div className={styles.fullWidthCell}>
-                  <button
-                    className={clsx(styles.submit, 'btn btn--primary btn--xs')}
-                    onClick={() => {
-                      setListOpen(true);
-                    }}
-                  >
-                    {elementTerms.open}
-                  </button>
+                  {!listOpen && (
+                    <button
+                      className={clsx(styles.submit, 'btn btn--primary btn--xs')}
+                      onClick={() => {
+                        setListOpen(true);
+                      }}
+                    >
+                      {elementTerms.open}
+                    </button>
+                  )}
+                  {listOpen && (
+                    <button
+                      className={clsx(styles.submit, 'btn btn--primary btn--xs')}
+                      onClick={() => {
+                        setListOpen(false);
+                      }}
+                    >
+                      {elementTerms.close}
+                    </button>
+                  )}
                   {product && (
                     <button
                       className={clsx(styles.submit, 'btn btn--destructive btn--xs')}

@@ -9,6 +9,7 @@
   "element": {
     "title": "Shopify Products",
     "open": "Select a product",
+    "close": "Cancel selecting",
     "clear": "Clear selected product",
     "placeholder": "Filter by name or description...",
     "previewExplanation": "This is a preview of the selected product information:",
