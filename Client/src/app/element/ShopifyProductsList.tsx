@@ -60,7 +60,11 @@ export const ShopifyProductsList: FC<IShopifyProductsListProps> = ({ setProduct,
 }`
   );
 
-  useEffect(() => updateSize(), [loading, updateSize]);
+  useEffect(
+    () => updateSize(),
+    // eslint-disable-next-line
+    [loading]
+  );
 
   return (
     <div>
