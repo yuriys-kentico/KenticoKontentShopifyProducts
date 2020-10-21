@@ -1,0 +1,18 @@
+{
+  "errors": {
+    "genericError": "A generic error has occurred.",
+    "genericStack": "No error information."
+  },
+  "shared": {
+    "download": "Download"
+  },
+  "element": {
+    "title": "Shopify Products",
+    "open": "Select a product",
+    "clear": "Clear selected product",
+    "placeholder": "Filter by name or description...",
+    "previewExplanation": "This is a preview of the selected product information:",
+    "enabledDescription": "Choose a product from Shopify.",
+    "disabledDescription": "This element has no functionality in this context."
+  }
+}
