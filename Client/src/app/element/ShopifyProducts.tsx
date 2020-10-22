@@ -86,7 +86,7 @@ export const ShopifyProducts: FC = () => {
 
   useEffect(() => {
     if (available) {
-      CustomElement.setHeight(document.documentElement.scrollHeight);
+      CustomElement.setHeight(document.documentElement.offsetHeight);
     }
   });
 
