@@ -4,6 +4,8 @@
     "genericStack": "No error information."
   },
   "shared": {
+    "pleaseRead": "Please read this: ",
+    "whatToDo": "What to do with the URL to this page",
     "download": "Download"
   },
   "element": {

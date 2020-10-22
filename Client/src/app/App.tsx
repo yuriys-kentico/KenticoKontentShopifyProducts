@@ -12,16 +12,14 @@ const Error = lazy(() => import('./Error').then((module) => ({ default: module.E
 export const App = boundary(() => {
   const [error, info] = useError();
 
-  if (error || info) {
-    return <Error stack={`${error && error.stack}${info && info.componentStack}`} />;
-  }
-
   const invalidUsage = global.self === global.top;
+  const hasError = error || info;
 
   return (
     <Suspense fallback={<Loading />}>
-      {invalidUsage && <InvalidUsage />}
-      {!invalidUsage && <ShopifyProducts />}
+      {hasError && <Error stack={`${error && error.stack}${info && info.componentStack}`} />}
+      {!hasError && invalidUsage && <InvalidUsage />}
+      {!hasError && !invalidUsage && <ShopifyProducts />}
     </Suspense>
   );
 });
