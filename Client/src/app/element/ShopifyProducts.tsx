@@ -52,12 +52,10 @@ export const ShopifyProducts: FC = () => {
   const [enabled, setEnabled] = useState(true);
   const [customElementConfig, setCustomElementConfig] = useState<IShopifyProductsConfig>();
   const [updateSize, setUpdateSize] = useState(false);
-  // const [loading, setLoading] = useState(false);
 
   const [listOpen, setListOpen] = useState(false);
   const [product, setProduct] = useState<IProduct>();
 
-  const elementRef = useRef<HTMLDivElement>(null);
   const graphqlClient = useRef<GraphQLClient>();
 
   useEffect(() => {
@@ -87,10 +85,8 @@ export const ShopifyProducts: FC = () => {
   }, [available]);
 
   useEffect(() => {
-    if (available && elementRef.current) {
-      let totalHeight = elementRef.current.scrollHeight;
-
-      CustomElement.setHeight(totalHeight);
+    if (available) {
+      CustomElement.setHeight(document.documentElement.scrollHeight);
     }
   });
 
@@ -127,99 +123,95 @@ export const ShopifyProducts: FC = () => {
 
   return (
     <ElementContext.Provider value={elementContext}>
-      {available && (
-        <div ref={elementRef}>
-          {enabled && customElementConfig && (
-            <>
-              <div className={styles.row}>
-                <div className={styles.fullWidthCell}>
-                  <p>{elementTerms.enabledDescription}</p>
-                </div>
-              </div>
-              <div className={styles.row}>
-                <div className={styles.fullWidthCell}>
-                  {!listOpen && (
-                    <button
-                      className={clsx(styles.submit, 'btn btn--primary btn--xs')}
-                      onClick={() => {
-                        setListOpen(true);
-                      }}
-                    >
-                      {elementTerms.open}
-                    </button>
-                  )}
-                  {listOpen && (
-                    <button
-                      className={clsx(styles.submit, 'btn btn--primary btn--xs')}
-                      onClick={() => {
-                        setListOpen(false);
-                      }}
-                    >
-                      {elementTerms.close}
-                    </button>
-                  )}
-                  {product && (
-                    <button
-                      className={clsx(styles.submit, 'btn btn--destructive btn--xs')}
-                      onClick={() => {
-                        setProduct(undefined);
-                      }}
-                    >
-                      {elementTerms.clear}
-                    </button>
-                  )}
-                </div>
-              </div>
-              <div className={styles.row}>
-                <div className={styles.fullWidthCell}>
-                  {graphqlClient.current && (
-                    <ClientContext.Provider value={graphqlClient.current}>
-                      {listOpen && <ShopifyProductsList setProduct={setProduct} setListOpen={setListOpen} />}
-                    </ClientContext.Provider>
-                  )}
-                </div>
-              </div>
-              {product && (
-                <div className={styles.row}>
-                  <div className={styles.fullWidthCell}>
-                    <p>{elementTerms.previewExplanation}</p>
-                  </div>
-                </div>
+      {available && enabled && (
+        <>
+          <div className={styles.row}>
+            <div className={styles.fullWidthCell}>
+              <p>{elementTerms.enabledDescription}</p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.fullWidthCell}>
+              {!listOpen && (
+                <button
+                  className={clsx(styles.submit, 'btn btn--primary btn--xs')}
+                  onClick={() => {
+                    setListOpen(true);
+                  }}
+                >
+                  {elementTerms.open}
+                </button>
+              )}
+              {listOpen && (
+                <button
+                  className={clsx(styles.submit, 'btn btn--primary btn--xs')}
+                  onClick={() => {
+                    setListOpen(false);
+                  }}
+                >
+                  {elementTerms.close}
+                </button>
               )}
               {product && (
-                <div className={styles.row}>
-                  <div className={styles.fullWidthCell}>
-                    <div className={styles.row}>
-                      <div className={styles.imageCell}>
-                        <img
-                          className={styles.image}
-                          src={product.images.edges[0].node.originalSrc}
-                          alt={product.title}
-                          onLoad={() => setUpdateSize(!updateSize)}
-                        />
-                      </div>
-                      <div className={styles.descriptionCell}>
-                        <h2>{product.title}</h2>
-                        <h3>{formatProductPrice(product.variants.edges[0].node.priceV2)}</h3>
-                        {parse(product.descriptionHtml, {
-                          replace: (domNode) => {
-                            switch (domNode.name) {
-                              case 'object':
-                                return <Fragment />;
-
-                              default:
-                                return domNode;
-                            }
-                          },
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <button
+                  className={clsx(styles.submit, 'btn btn--destructive btn--xs')}
+                  onClick={() => {
+                    setProduct(undefined);
+                  }}
+                >
+                  {elementTerms.clear}
+                </button>
               )}
-            </>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.fullWidthCell}>
+              {graphqlClient.current && (
+                <ClientContext.Provider value={graphqlClient.current}>
+                  {listOpen && <ShopifyProductsList setProduct={setProduct} setListOpen={setListOpen} />}
+                </ClientContext.Provider>
+              )}
+            </div>
+          </div>
+          {product && (
+            <div className={styles.row}>
+              <div className={styles.fullWidthCell}>
+                <p>{elementTerms.previewExplanation}</p>
+              </div>
+            </div>
           )}
-        </div>
+          {product && (
+            <div className={styles.row}>
+              <div className={styles.fullWidthCell}>
+                <div className={styles.row}>
+                  <div className={styles.imageCell}>
+                    <img
+                      className={styles.image}
+                      src={product.images.edges[0].node.originalSrc}
+                      alt={product.title}
+                      onLoad={() => setUpdateSize(!updateSize)}
+                    />
+                  </div>
+                  <div className={styles.descriptionCell}>
+                    <h2>{product.title}</h2>
+                    <h3>{formatProductPrice(product.variants.edges[0].node.priceV2)}</h3>
+                    {parse(product.descriptionHtml, {
+                      replace: (domNode) => {
+                        switch (domNode.name) {
+                          case 'object':
+                            return <Fragment />;
+
+                          default:
+                            return domNode;
+                        }
+                      },
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </ElementContext.Provider>
   );
